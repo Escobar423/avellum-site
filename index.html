@@ -1,148 +1,424 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Avellum — Продажа автомобилей</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Avellum — Авто под заказ из Кореи и Китая</title>
+  <meta name="description" content="Avellum — подбор, проверка и доставка авто из Кореи и Китая. Таможня, логистика, гарантия.">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0f0f0f;
-      color: #fff;
+    *{box-sizing:border-box}html,body{margin:0;padding:0}
+    :root{--bg:#0c0c0c;--card:#151515;--ink:#eaeaea;--muted:#a0a0a0;--brand:#d4af37}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;background:#0b0b0b;color:var(--ink);line-height:1.5}
+    .container{width:min(1160px,92%);margin:auto}
+    .site-header{position:sticky;top:0;background:rgba(12,12,12,.85);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid #1e1e1e;z-index:20}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(145deg,var(--brand),#6b5b28);display:grid;place-items:center;font-weight:800;color:#111}
+    .brand-name{font-weight:800;letter-spacing:.5px}
+    .brand-tag{font-size:12px;color:var(--muted)}
+    .nav{display:flex;gap:16px;align-items:center}
+    .nav a{color:var(--ink);text-decoration:none;padding:8px 10px;border-radius:8px;opacity:.9}
+    .nav a:hover{background:#1b1b1b}
+    .nav .cta{background:var(--brand);color:#111;font-weight:700}
+    .hero{padding:60px 0 40px;background:radial-gradient(1100px 480px at 70% -10%, rgba(212,175,55,.15), transparent), linear-gradient(#0c0c0c,#0c0c0c)}
+    .hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
+    .hero h1{font-size:38px;line-height:1.1;margin:0 0 10px}
+    .hero p{color:var(--muted)}
+    .hero-cta{display:flex;gap:12px;margin:18px 0 8px}
+    .benefits{display:flex;gap:14px;flex-wrap:wrap;color:#cfcfcf}
+    .btn{display:inline-block;border:none;padding:12px 16px;border-radius:10px;text-decoration:none;cursor:pointer;font-weight:700}
+    .btn-primary{background:var(--brand);color:#111}
+    .btn-ghost{background:#1a1a1a;color:var(--ink);border:1px solid #2a2a2a}
+    .hero-img .car-card{height:260px;border-radius:16px;background:linear-gradient(135deg,#1a1a1a,#0f0f0f);border:1px solid #222;position:relative;overflow:hidden}
+    .hero-img .car-card::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.02) 0 10px,transparent 10px 20px)}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:12px 0 6px}
+    .section-head h2{margin:0}
+    .muted{color:var(--muted)}
+    .tiny{font-size:12px}
+    .catalog{padding:26px 0}
+    .filters{display:flex;gap:10px;flex-wrap:wrap}
+    .filters input,.filters select{background:#111;border:1px solid #222;color:var(--ink);padding:10px;border-radius:10px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .card{background:var(--card);border:1px solid #222;border-radius:14px;overflow:hidden}
+    .card .ph{background:linear-gradient(135deg,#1f1f1f,#151515);height:170px}
+    .card-body{padding:12px}
+    .card h3{margin:0 0 6px;font-size:18px}
+    .badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#1d1d1d;border:1px solid #2a2a2a;font-size:12px;color:#cfcfcf;margin-right:6px}
+    .price{font-weight:800;font-size:18px}
+    .row{display:flex;justify-content:space-between;align-items:center;gap:6px;margin:8px 0}
+    .services{padding:28px 0;border-top:1px solid #1a1a1a;border-bottom:1px solid #1a1a1a}
+    .srv-card{background:var(--card);border:1px solid #222;border-radius:14px;padding:16px}
+    .calc{padding:28px 0}
+    .calc-form label{display:block;margin:10px 0}
+    .calc-form input,.calc-form select{width:100%;background:#111;border:1px solid #222;color:var(--ink);padding:10px;border-radius:10px}
+    .calc-result{min-height:140px;background:var(--card);border:1px solid #222;border-radius:14px;padding:16px}
+    .lead{padding:28px 0;border-top:1px solid #1a1a1a}
+    .lead-form label{display:block;margin:10px 0}
+    .lead-form input,.lead-form select,.lead-form textarea{width:100%;background:#111;border:1px solid #222;color:var(--ink);padding:10px;border-radius:10px}
+    .contact{padding:28px 0;border-top:1px solid #1a1a1a}
+    .contact-actions{display:flex;gap:12px;align-items:center;justify-content:flex-end}
+    .site-footer{border-top:1px solid #1a1a1a;color:#c1c1c1;padding:18px 0}
+    @media (max-width: 960px){
+      .hero-inner{grid-template-columns:1fr}
+      .grid,.grid-2,.grid-3{grid-template-columns:1fr 1fr}
     }
-    header {
-      background-color: #111;
-      padding: 20px 40px;
-      text-align: center;
-      border-bottom: 2px solid gold;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.5em;
-      color: gold;
-    }
-    header p {
-      margin-top: 10px;
-      font-size: 1.2em;
-      color: #ccc;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-    .cars-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-    .car-card {
-      background-color: #1b1b1b;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
-      transition: 0.3s;
-    }
-    .car-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-    }
-    .car-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-    .car-card .info {
-      padding: 15px;
-    }
-    .car-card .info h2 {
-      margin: 0 0 10px;
-      font-size: 1.2em;
-      color: gold;
-    }
-    .car-card .info p {
-      margin: 0;
-      font-size: 0.95em;
-      color: #ccc;
-    }
-    footer {
-      text-align: center;
-      color: #666;
-      font-size: 0.9em;
-      margin: 50px 0 20px;
+    @media (max-width: 640px){
+      .nav{display:none}
+      .grid,.grid-2,.grid-3{grid-template-columns:1fr}
+      .hero h1{font-size:30px}
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Avellum Auto</h1>
-    <p>Лучшие автомобили из Китая и Кореи — под заказ</p>
-  </header>
-
-  <div class="container">
-    <div class="cars-grid">
-
-      <div class="car-card">
-        <img src="images/car_1.jpeg" alt="Автомобиль 1">
-        <div class="info">
-          <h2>Автомобиль 1</h2>
-          <p>Год выпуска: 2021</p>
-          <p>Двигатель: 2.0T • АКПП • Пробег: 48 000 км</p>
-        </div>
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand">
+      <div class="logo">A</div>
+      <div class="brand-text">
+        <div class="brand-name">Avellum</div>
+        <div class="brand-tag">Auto Import • Korea • China</div>
       </div>
+    </div>
+    <nav class="nav">
+      <a href="#catalog">Каталог</a>
+      <a href="#services">Услуги</a>
+      <a href="#calc">Калькулятор</a>
+      <a href="#contact">Контакты</a>
+      <a class="cta" href="#lead">Оставить заявку</a>
+    </nav>
+  </div>
+</header>
 
-      <div class="car-card">
-        <img src="images/car_2.jpeg" alt="Автомобиль 2">
-        <div class="info">
-          <h2>Автомобиль 2</h2>
-          <p>Год выпуска: 2021</p>
-          <p>Двигатель: 2.0T • АКПП • Пробег: 48 000 км</p>
-        </div>
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <h1>Авто под заказ из Кореи и Китая — честно, под ключ</h1>
+      <p>Подберём, проверим, доставим и растаможим. Договор, прозрачная смета, фото- и видеоотчёты на каждом этапе.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#lead">Получить расчёт</a>
+        <a class="btn btn-ghost" href="#catalog">Смотреть авто</a>
       </div>
-
-      <div class="car-card">
-        <img src="images/car_3.jpeg" alt="Автомобиль 3">
-        <div class="info">
-          <h2>Автомобиль 3</h2>
-          <p>Год выпуска: 2021</p>
-          <p>Двигатель: 2.0T • АКПП • Пробег: 48 000 км</p>
-        </div>
+      <div class="benefits">
+        <span>✓ Гарантия происхождения</span>
+        <span>✓ Собственная логистика</span>
+        <span>✓ Оплата по этапам</span>
       </div>
-
-      <div class="car-card">
-        <img src="images/car_4.jpeg" alt="Автомобиль 4">
-        <div class="info">
-          <h2>Автомобиль 4</h2>
-          <p>Год выпуска: 2021</p>
-          <p>Двигатель: 2.0T • АКПП • Пробег: 48 000 км</p>
-        </div>
-      </div>
-
-      <div class="car-card">
-        <img src="images/car_5.jpeg" alt="Автомобиль 5">
-        <div class="info">
-          <h2>Автомобиль 5</h2>
-          <p>Год выпуска: 2021</p>
-          <p>Двигатель: 2.0T • АКПП • Пробег: 48 000 км</p>
-        </div>
-      </div>
-
-      <div class="car-card">
-        <img src="images/car_6.jpeg" alt="Автомобиль 6">
-        <div class="info">
-          <h2>Автомобиль 6</h2>
-          <p>Год выпуска: 2021</p>
-          <p>Двигатель: 2.0T • АКПП • Пробег: 48 000 км</p>
-        </div>
-      </div>
-
+    </div>
+    <div class="hero-img" aria-hidden="true">
+      <div class="car-card ph"></div>
     </div>
   </div>
+</section>
 
-  <footer>
-    © 2025 Avellum Auto — Все права защищены.
-  </footer>
+<section id="catalog" class="catalog">
+  <div class="container">
+    <div class="section-head">
+      <h2>Актуальные предложения</h2>
+      <div class="filters">
+        <input type="text" id="q" placeholder="Марка / модель">
+        <select id="year"><option value="">Год</option></select>
+        <select id="country">
+          <option value="">Страна</option>
+          <option>Корея</option>
+          <option>Китай</option>
+          <option>Япония</option>
+        </select>
+        <select id="price">
+          <option value="">Цена</option>
+          <option value="2000000">до 2 млн ₽</option>
+          <option value="3000000">до 3 млн ₽</option>
+          <option value="5000000">до 5 млн ₽</option>
+          <option value="999999999">все</option>
+        </select>
+        <button id="reset" class="btn btn-ghost" type="button">Сброс</button>
+      </div>
+    </div>
+    <div id="cards" class="grid"></div>
+  </div>
+</section>
+
+<section id="services" class="services">
+  <div class="container">
+    <div class="section-head">
+      <h2>Наши услуги</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="srv-card">
+        <h3>Подбор под заказ</h3>
+        <p>Анализ рынка, проверка истории, торг и бронирование. Работаем с Copart Korea, Encar, China Auto и др.</p>
+      </div>
+      <div class="srv-card">
+        <h3>Логистика и таможня</h3>
+        <p>Морем/жд до РФ, оформление ДТ, ЭПТС. Предварительный расчёт пошлин и утилизационного сбора.</p>
+      </div>
+      <div class="srv-card">
+        <h3>Пакет под ключ</h3>
+        <p>Договор, поэтапная оплата, фото- и видеоотчёты, предпродажная подготовка, постановка на учёт.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="calc" class="calc">
+  <div class="container">
+    <div class="section-head">
+      <h2>Калькулятор ориентировочной стоимости</h2>
+      <p class="muted">Черновой расчёт. Точные цифры пришлём после заявки.</p>
+    </div>
+    <div class="grid grid-2">
+      <div class="calc-form">
+        <label>Цена авто за рубежом, $
+          <input type="number" id="cPrice" value="18000" min="1000" step="500">
+        </label>
+        <label>Объём двигателя, см³
+          <input type="number" id="cCc" value="1998" min="600" step="100">
+        </label>
+        <label>Год выпуска
+          <input type="number" id="cYear" value="2021" min="2005" max="2025">
+        </label>
+        <label>Страна поставки
+          <select id="cCountry">
+            <option>Корея</option>
+            <option>Китай</option>
+            <option>Япония</option>
+          </select>
+        </label>
+        <button class="btn btn-primary" id="calcBtn" type="button">Рассчитать</button>
+      </div>
+      <div class="calc-out">
+        <div id="calcResult" class="calc-result ph">Здесь будет расчёт...</div>
+        <small class="muted">*Расчёт приблизительный и не является публичной офертой</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="lead" class="lead">
+  <div class="container">
+    <div class="section-head">
+      <h2>Оставить заявку</h2>
+      <p>Опишите желаемый автомобиль — перезвоним в течение 15 минут в рабочее время.</p>
+    </div>
+    <form id="leadForm" class="lead-form">
+      <div class="grid grid-2">
+        <label>Имя
+          <input type="text" name="name" required>
+        </label>
+        <label>Телефон (WhatsApp/Telegram)
+          <input type="tel" name="phone" required>
+        </label>
+      </div>
+      <label>Запрос
+        <textarea name="msg" rows="4" placeholder="Марка, модель, год, бюджет, город..."></textarea>
+      </label>
+      <div class="grid grid-2">
+        <label>Предпочтение страны
+          <select name="prefCountry">
+            <option>Корея</option>
+            <option>Китай</option>
+            <option>Япония</option>
+            <option>Неважно</option>
+          </select>
+        </label>
+        <label>Бюджет, ₽
+          <input type="number" name="budget" min="500000" step="50000">
+        </label>
+      </div>
+      <button class="btn btn-primary" type="submit">Отправить в WhatsApp</button>
+      <div class="muted tiny">По кнопке откроется WhatsApp с заполненным сообщением. Можно заменить на Telegram или почту.</div>
+    </form>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="grid grid-2">
+      <div>
+        <h2>Контакты</h2>
+        <p><strong>Avellum</strong><br>Импорт и продажа автомобилей</p>
+        <p class="muted">Адрес, график работы и реквизиты можно добавить здесь.</p>
+      </div>
+      <div class="contact-actions">
+        <a class="btn btn-primary" id="waBtn" href="#" target="_blank" rel="noopener">Написать в WhatsApp</a>
+        <a class="btn btn-ghost" href="mailto:sales@example.com?subject=Заявка%20на%20авто%20—%20Avellum">Написать на почту</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>© <span id="year"></span> Avellum</div>
+    <div class="tiny muted">Политика конфиденциальности • Пользовательское соглашение</div>
+  </div>
+</footer>
+
+<script>
+  // ===== MOCK INVENTORY =====
+  const INVENTORY = [
+    {id:1, make:'BMW', model:'X5', year:2021, country:'Корея', engine:'3.0 бензин', mileage:38000, price:4650000, note:'VIN по запросу'},
+    {id:2, make:'KIA', model:'K5', year:2021, country:'Корея', engine:'2.0 бензин', mileage:52000, price:1590000, note:'Русификация возможна'},
+    {id:3, make:'Hyundai', model:'Palisade', year:2022, country:'Корея', engine:'3.8 бензин', mileage:22000, price:3950000, note:'7 мест'},
+    {id:4, make:'Toyota', model:'Camry', year:2021, country:'Китай', engine:'2.5 бензин', mileage:18000, price:2350000, note:'Сборка КНР'},
+    {id:5, make:'Infiniti', model:'QX80', year:2021, country:'Китай', engine:'5.6 бензин', mileage:44000, price:5650000, note:'Под заказ'},
+    {id:6, make:'BMW', model:'S1000XR', year:2022, country:'Корея', engine:'1000 см³', mileage:8000, price:1390000, note:'Мотоцикл'}
+  ];
+
+  const YEARS = Array.from(new Set(INVENTORY.map(x=>x.year))).sort((a,b)=>b-a);
+  function fmt(n){return n.toLocaleString('ru-RU')}
+
+  function card(item){
+    return `
+    <div class="card">
+      <div class="ph" aria-hidden="true"></div>
+      <div class="card-body">
+        <h3>${item.make} ${item.model} • ${item.year}</h3>
+        <div class="row">
+          <div>
+            <span class="badge">${item.country}</span>
+            <span class="badge">${item.engine}</span>
+            <span class="badge">Пробег ${fmt(item.mileage)} км</span>
+          </div>
+          <div class="price">${fmt(item.price)} ₽</div>
+        </div>
+        <div class="row">
+          <small class="muted">${item.note || ''}</small>
+          <a class="btn btn-ghost" href="#lead" onclick="prefill('${item.make} ${item.model}', ${item.year}, ${item.price})">Хочу этот авто</a>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function renderYears(){
+    const y = document.getElementById('year');
+    YEARS.forEach(v=>{
+      const o = document.createElement('option');
+      o.value = v; o.textContent = v;
+      y.appendChild(o);
+    });
+  }
+
+  function render(list){
+    document.getElementById('cards').innerHTML = list.map(card).join('');
+  }
+
+  function applyFilters(){
+    const q = document.getElementById('q').value.trim().toLowerCase();
+    const y = document.getElementById('year').value;
+    const c = document.getElementById('country').value;
+    const p = document.getElementById('price').value;
+
+    let list = INVENTORY.filter(it=>{
+      let ok = true;
+      if(q) ok = ok && (`${it.make} ${it.model}`.toLowerCase().includes(q));
+      if(y) ok = ok && (String(it.year)===String(y));
+      if(c) ok = ok && (it.country===c);
+      if(p) ok = ok && (it.price <= Number(p));
+      return ok;
+    });
+    render(list);
+  }
+
+  function prefill(title, year, price){
+    const f = document.getElementById('leadForm');
+    f.msg.value = `${title} ${year}. Бюджет ~ ${fmt(price)} ₽.`;
+  }
+
+  function setupLead(){
+    const f = document.getElementById('leadForm');
+    f.addEventListener('submit', e=>{
+      e.preventDefault();
+      const name = f.name.value.trim();
+      const phone = f.phone.value.trim();
+      const msg = f.msg.value.trim();
+      const pref = f.prefCountry.value;
+      const budget = f.budget.value;
+
+      // >>> ЗАМЕНИ НА СВОЙ НОМЕР (без +), например: 79831234567
+      const WA_NUMBER = 'YOUR_NUMBER_HERE';
+
+      const text = `Avellum заявка%0AИмя: ${encodeURIComponent(name)}%0AТел: ${encodeURIComponent(phone)}%0AСтрана: ${encodeURIComponent(pref)}%0AБюджет: ${encodeURIComponent(budget)} ₽%0AЗапрос: ${encodeURIComponent(msg)}`;
+      const wa = `https://wa.me/${WA_NUMBER}?text=${text}`;
+      window.open(wa, '_blank');
+    });
+
+    document.getElementById('waBtn').addEventListener('click', e=>{
+      e.preventDefault();
+      const WA_NUMBER = 'YOUR_NUMBER_HERE';
+      const wa = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Здравствуйте! Хочу подобрать авто.')}`;
+      window.open(wa, '_blank');
+    });
+  }
+
+  function calc(){
+    const price = Number(document.getElementById('cPrice').value||0);
+    const cc = Number(document.getElementById('cCc').value||0);
+    const year = Number(document.getElementById('cYear').value||0);
+    const country = document.getElementById('cCountry').value;
+
+    // Черновой расчёт (условная модель)
+    const fx = { 'Корея': 1800, 'Китай': 1200, 'Япония': 1600 }[country] || 1500;
+    const fee = Math.max(70000, price*0.05);
+    const duty = price*0.15;
+    const excise = Math.max(0, (cc-1600))*2;
+    const recycle = 12000;
+    const vat = (price + duty + excise + recycle + fx)*0.2;
+
+    const total = price + fx + fee + duty + excise + recycle + vat;
+
+    const out = `
+      <div><strong>База:</strong> $${price.toLocaleString('en-US')} (~₽ по текущему курсу)</div>
+      <div>Логистика: ₽ ${fx.toLocaleString('ru-RU')}</div>
+      <div>Комиссия: ₽ ${fee.toLocaleString('ru-RU')}</div>
+      <div>Пошлина: ₽ ${duty.toLocaleString('ru-RU')}</div>
+      <div>Акциз (условно): ₽ ${excise.toLocaleString('ru-RU')}</div>
+      <div>Утильсбор (условно): ₽ ${recycle.toLocaleString('ru-RU')}</div>
+      <div>НДС 20%: ₽ ${vat.toLocaleString('ru-RU')}</div>
+      <hr>
+      <div><strong>Итого ориентировочно: ₽ ${total.toLocaleString('ru-RU')}</strong></div>
+      <div class="tiny muted">* Точные ставки зависят от ТН ВЭД, возраста, параметров ДВС/электро и др.</div>
+    `;
+    document.getElementById('calcResult').innerHTML = out;
+  }
+
+  function main(){
+    renderYears();
+    render(INVENTORY);
+    ['q','year','country','price'].forEach(id=>{
+      const el = document.getElementById(id);
+      el.addEventListener('input', applyFilters);
+      el.addEventListener('change', applyFilters);
+    });
+    document.getElementById('reset').addEventListener('click', ()=>{
+      document.getElementById('q').value='';
+      document.getElementById('year').value='';
+      document.getElementById('country').value='';
+      document.getElementById('price').value='';
+      applyFilters();
+    });
+    document.getElementById('calcBtn').addEventListener('click', calc);
+    setupLead();
+    document.getElementById('year').value='';
+    document.getElementById('year').dispatchEvent(new Event('change'));
+    document.getElementById('year').value='';
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    document.getElementById('year'); // ensure elements exist
+    document.getElementById('year') && main();
+    const y = document.getElementById('year');
+    if(y){ y.value=''; }
+    document.getElementById('year') && document.getElementById('year').dispatchEvent(new Event('change'));
+    document.getElementById('year') && (document.getElementById('year').value='');
+    // год в футере
+    const yr = document.getElementById('year');
+    const footerYear = document.querySelector('footer #year');
+    if(footerYear) footerYear.textContent = new Date().getFullYear();
+  });
+</script>
 </body>
 </html>
